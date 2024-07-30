@@ -9,15 +9,6 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.1/fireba
 import { getAuth} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js'
 import { getFirestore,collection, addDoc, where,getDocs, query, orderBy,doc  } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore.js'
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyC6LbV4AJAxbpBlMXtSBz77NgdgInpcl6c",
-    authDomain: "lsachatbot.firebaseapp.com",
-    projectId: "lsachatbot",
-    storageBucket: "lsachatbot.appspot.com",
-    messagingSenderId: "817674467330",
-    appId: "1:817674467330:web:a97a4b92bc7a8258308f1b"
-};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

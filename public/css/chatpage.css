@@ -1,0 +1,317 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0px 0px 0px 15%;;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100vh;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    -webkit-font-smoothing: antialiased;
+    transition: 0.4s;
+}
+pre {
+    background-color: #23241f;
+    border-radius: 8px;
+    padding: 20px;
+    overflow: auto;
+}
+
+pre>code {
+    color: #fefefe;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+.p1{
+    font-size: 0.8rem;
+    padding: 2px;
+}
+.h1{
+    width: 90%;
+    height: 8vh;
+    margin: 1px 0 1px;
+    padding-left: 10%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    transition: 0.2s;
+}
+#logo{
+    font-family: system-ui;
+    font-weight: 900;
+    font-size: 2rem;
+    background-clip: text;
+    color: #e3e3e300;
+    transition: 0.2s;
+    background-image: linear-gradient(359deg, #ef00ff99, rgb(0 161 255 / 54%));
+}
+#Uprofile{
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 18.5px;
+    background-color: gainsboro;
+    margin-right: 5%;
+    position: relative;
+}
+.profile{
+    top: 52px;
+    right: 15px;
+    z-index: 2;
+    color: black;
+    font-size: 1rem;
+    font-weight: 100;
+    position: absolute;
+    width: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 1px 3px 10px rgba(128, 128, 128, 0.493);
+    transition: ease-in-out;
+    transition-duration: 2s;
+}
+.pp{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background-color: grey;
+}
+small{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+    font-size: 0.6rem;
+    color: black;
+    -webkit-text-stroke: none;
+    background-clip: none; background-image: none;
+}
+i:hover{
+    cursor: pointer;
+}
+.chat-container {
+    width: 67%;
+    height: 87vh;
+    border-radius: 5px;
+    padding: 2px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.loader {
+    display: none;
+    position: absolute;
+    bottom: 63px;
+    border: 4px solid #dedddd;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    animation: spin 2s linear infinite;
+  }
+  .show{
+    display: block;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+.chat-history {
+    height: auto;
+    min-height: 60%;
+    max-height: 90%;
+    overflow-y: scroll;
+    padding-bottom: 10px;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+}
+
+.user-message {
+    text-align: right;
+}
+
+.model-message {
+    text-align: left;
+}
+
+.message-content {
+    position: relative;
+    padding: 10px 15px;
+    border-radius: 10px 0px 20px 10px;
+    display: inline-block;
+}
+.ai-message{font-size: 0.8rem;font-family: system-ui;width: 90%;text-wrap: wrap;}
+
+.user-message .message-content {
+    background-color: #b941c71c;
+}
+
+.model-message .message-content {
+    background-color: #f5f5f5;
+}
+
+.chat-input {
+    display: flex;
+    height: 60px;
+    position: relative;
+    box-shadow: 0px -30px 20px #f5f5f5;
+}
+.side-bar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5%;
+    color: white;
+    height: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    background-image: linear-gradient(0deg, #a802b4bf, rgba(90, 20, 231, 0.682));
+    transition: ease-in-out;
+    transition-duration: 500ms;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(0deg, #bc03c9ab, rgb(20 97 231 / 78%));
+    backdrop-filter: blur(3px);
+    color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+.hiddenTxt{
+    display: none;
+    
+}
+.convo{
+    width: 100%;
+    margin: 0;
+    padding: 8px 3.2px;
+    border-radius: 20px;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: auto;
+}
+.nConvo{
+    display: none;
+    width: 10px;
+    height: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;font-size: 1rem;
+    border: 1px solid grey;
+}
+.convo:hover,.nConvo:hover{
+    cursor: pointer;
+    background-color: rgba(119, 87, 120, 0.61);
+}
+.topOptions,.bottomOptions{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#user-message {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#send-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-image: linear-gradient(357deg, #a802b496, rgb(20 145 231 / 67%));
+    color: white;
+}
+.ic{
+    display: flex;
+    gap: 8px;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+
+}
+.ic:hover{
+    cursor: pointer;
+    background-color: rgba(119, 87, 120, 0.61);
+    border-radius: 30px;
+}
+
+@media screen and (max-width: 600px) {
+    body{
+        padding: 0;
+    }
+    .p1{
+        font-size: 0.8rem;
+        padding: 0 10%;
+    }
+    .chat-container {
+        width: 83%;
+        padding: 2px;
+        justify-content: space-between;
+    }
+    .chat-container>ul{
+        padding:0;
+        margin:0;
+    }
+    .side-bar{
+        display: none;
+    }
+    .nConvo{
+        display: flex;
+    }
+    .sidenav {padding-top: 15%; color: #fff;}
+    .sidenav a {font-size: 18px;}
+
+}

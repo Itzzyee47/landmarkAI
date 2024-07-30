@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Zylla</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/chatpage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/monokai-sublime.min.css">
+</head>
+<body id="bd" style="padding: ;">
+    <div id="currentUser" style="display: none;"></div>
+    <div class="h1">
+        <div class="nConvo" style="position:absolute;color:black;left:2px;border:none;" onclick="openNav()"> &#9776; </div>
+        <div id="logo" style="">
+            
+            Zylla<small>g_0.1</small>
+        </div>
+        <div class="nConvo" id="cNconvo2" title="Create new conversation" style="color:grey;"><i class="fa fa-plus " ></i> </div>
+        <div id="Uprofile" onclick="displayProfile()">
+
+        </div>
+        <div class="profile" id="profile" style="display: none;scale:0;">
+            <button style="display:flex;align-self: end;border-radius:5px;border:none;color:red;" onclick="hideProfile()">X</button>
+            <text id="user-email"></text> 
+            <img src="" alt="profileImage" class="pp" id="User-picture">
+            <text id="userName"></text>
+            <div>
+                <button>Manage Profile</button><button>Leave a review</button>
+            </div>
+        </div>
+    </div>
+    <p class="p1" id="p1">
+        Hi there! 👋It's nice to meet you.
+        I'm Zylla, your friendly student assistant chatbot. <br> 
+        How can I help you today? 😊 Are you looking for information <br> 
+        about Landmark College or need help with some research? Let me know! 
+    </p>
+    <div class="chat-container" id="Convo" data="">
+        
+        <div class="chat-history" id="chat-history">
+
+
+        </div>
+        <form class="chat-input" method="post" id="message-form" onsubmit="(event) => {event.preventDefault();}">
+            <div class="loader" id="loader"></div>
+            
+            <input type="text" id="user-message" name="user-message" placeholder="Type your message here">
+            <button id="send-button" type="submit">Send</button>
+        </form>
+    </div>
+
+    <div class="side-bar"  id="side-bar" style="width:5%;">
+        <div class="topOptions">
+            <div class="ic" style="margin-top: 30px;" onclick="showBar()"><i class="fa fa-bars " aria-hidden="true" ></i> </div>
+            <div class="ic" id="newConvo" style="margin-top: 30px;"><i class="fa fa-plus " ></i> <div style="margin-left: 6px;" title="Create new conversation" id="cNconvo"  class="hiddenTxt" >New Chat</div></div><br>
+            <ul style="font-size: 0.8rem; list-style: none; padding: 0; margin: 0; width:90%;" id="allConvos">
+                <div style="margin-bottom: 12px; font-size:1rem;" class="hiddenTxt">Recent</div>
+                <li  class="hiddenTxt convo">
+                    <i class="fa fa-comment"></i> Pass conversation.
+                </li>
+            </ul>
+        </div>
+        <div class="bottomOptions">
+            <div class="ic " id="newConvo"  onclick="signOutUser()"><i class="fa fa-sign-out" ></i> <div class="hiddenTxt ">Sign-out</div></div><br>
+           <div style="margin-bottom: 30px;" onclick="goto('/')" class=" ic " id="newConvo"> <i class="fa fa-home "></i> <div class="hiddenTxt ">Home</div></div>
+        </div>
+    </div>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="c1" style="width:95%; height:98vh; display: flex; flex-direction: column; justify-content: space-between;">
+
+            <div class="c2" style="background-color: #0707076e; border-radius: 6px;">
+               <ul id="allConvosMobile" style="list-style: none;">
+                <div style="margin-bottom: 12px; font-size:1rem;">Recent</div>
+                    <li  class="hiddenTxt convo">
+                        <i class="fa fa-comment"></i> Pass conversation.
+                    </li>
+               </ul>
+            </div>
+
+            <div class="c3" style="margin-bottom: 9px;">
+                <div class="ic " id="newConvo" onclick="signOutUser()" ><i class="fa fa-sign-out" ></i> <div class="hiddenTxt ">Sign-out</div></div><br>
+                <div style="margin-bottom: 30px;" onclick="goto('/')" class=" ic " id="newConvo"> <i class="fa fa-home "></i> <div class="hiddenTxt ">Home</div></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked-mangle/dist/marked-mangle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked-gfm-heading-id/dist/marked-gfm-heading-id.min.js"></script>
+
+    <script>
+        
+        const bar = document.getElementById('side-bar');
+        const body = document.getElementById('bd');
+        function goto(site){
+            window.location.assign(site);
+        }
+        function showBar(){
+            let nC = document.getElementById('newConvo');
+            let barWidth = bar.style.width;
+            let bodyPadding = body.style.paddingLeft;
+            let tx = document.getElementsByClassName('hiddenTxt');
+            if(barWidth == '5%'){
+                bar.style.width = '15%';
+                bar.style.alignItems = 'start';
+                body.style.paddingLeft = '15%';
+                nC.style.width = 'auto';
+                for(i=0;i<tx.length;i++){
+                    tx[i].style.display = 'block';
+                    tx[i].style.width = '100%';
+                    
+                }
+            }else{
+                bar.style.width = '5%';
+                body.style.paddingLeft = '';
+                bar.style.alignItems = 'center';
+                nC.style.width = '30px';
+                for(i=0;i<tx.length;i++){
+                    tx[i].style.display = 'none';
+                    
+                }
+            }
+        }
+
+        function displayProfile(){
+            let profile = document.getElementById('profile');
+            if(profile.style.display == 'none'){
+                profile.style.display = 'flex';
+                profile.style.scale = 1;
+            }
+        }
+        function hideProfile(){
+            let profile = document.getElementById('profile');
+            if(profile.style.display == 'flex'){
+                profile.style.display = 'none';
+                profile.style.scale = 0;
+            }
+        }
+        function openNav() {
+            let logo = document.getElementById("logo");
+            document.getElementById("mySidenav").style.width = "250px";
+            logo.style.zIndex = 3;
+            logo.style.webkitTextStroke = '0.7px darkslategray';
+          }
+          
+          function closeNav() {
+            let logo = document.getElementById("logo");
+            document.getElementById("mySidenav").style.width = "0";
+            logo.style.zIndex = '';
+            logo.style.webkitTextStroke = '';
+          }
+
+    </script>
+
+    <script src="../js/chatpage.js" type="module"></script>
+
+   
+</body>
+</html>

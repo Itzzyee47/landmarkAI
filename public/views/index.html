@@ -1,0 +1,204 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSA_LandingPage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+    <link rel="stylesheet" href="../css/landing.css">
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid blue;
+            border-bottom: 16px solid blue;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+          }
+          
+          @keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+          }
+          
+    </style>
+</head>
+<body>
+    
+
+    <div id="mySidenav" class="sidenav">
+        <a href="" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="" onclick="showSect(0)" class="nI">Home</a>
+        <a href="" onclick="showSect(1)" class="nI">About</a>
+        <a href="" onclick="showSect(2)" class="nI">Help</a>
+        <a href="" class="nI">Chat</a>
+        <div class="sign" style="display: block;">
+            <div class="signIn" onclick="document.getElementById('id01').style.display='flex';closeNav()">Sign in</div>
+            <div class="signUp" onclick="document.getElementById('id02').style.display='flex';closeNav()">Sign up</div>
+        </div>
+      </div>
+      
+      
+    <section>
+
+        <nav>
+            <div class="logo">LSA_Chatbot</div>
+
+            <div class="pages">
+                <div class="p active" onclick="showSect(0)">Home</div>
+                <div class="p" onclick="showSect(1)" >About</div>
+                <div class="p" onclick="showSect(2)">Help</div>
+                <div class="p" onclick="">Chat</div>
+            </div>
+
+            <div class="sign">
+                <div class="signIn" onclick="document.getElementById('id01').style.display='flex'">Sign in</div>
+                <div class="signUp" onclick="document.getElementById('id02').style.display='flex'">Sign up</div>
+            </div>
+            <span onclick="openNav()" class="B"><i class="fa fa-bars " style="font-size: 2rem;
+                padding-right: 15px;"></i></span>
+        </nav>
+        <div class="space" style="height: 100px; width:100%;">
+
+        </div>
+        <div class="welcome" id="landing">
+            
+           <div class="welcomeText">
+            <h1 class="I1">Hi there stranger!</h1>
+            <h3 class="I2"> Welcome to Landmark's Student Assistant ChatBot,</h3>
+            <div class="prase">
+                Sign up for a world of fun and learning with Landmark's AI chatbot. <br>
+                For all your questions concering the institude Landmark, sign up and ask here.
+            </div>
+            <button id="startBTN" onclick="goto('/chat')">
+                Get started
+            </button>
+           </div>
+           <div class="welImg">
+                <img src="../img/sandrine.png" alt="">
+                <div class="message1">Hi there!</div>
+                <div class="message2"> Hello, what can i study in Landmark</div>
+                <div class="message1" style="top: 50%;">There are a varity of courses we offer, what are you into</div>
+                <div class="message2" style="top: 64%;max-width: 180px; z-index:1;"> I love animation and I'm good at computer</div>
+           </div>
+        </div>
+
+        
+        <div class="about" id="about" style="position: relative;">
+           
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <div class="half">
+                <div class="aboutUs">
+                    Zylla is a chatbot designed to answer questions about the institude of Landmark Buea.
+                    She is trained on data gotten from the LMUI website and makes use of current AI technologies 
+                    to assist students or personels with research and more.
+                </div>
+                <div class="aniI" >
+                    <lottie-player src="https://lottie.host/d9530aa3-dd21-481d-8148-f9a878f6b3ab/Wj4Wt9iY80.json" background="transparent" speed="1" style="width: 100%; height: 100%" loop autoplay direction="1" mode="normal"></lottie-player>
+                </div>
+            </div>
+            <div class="half">
+                <div class="aniI" style="margin-left: 10%;">
+                    <lottie-player src="https://lottie.host/abd3f40a-836c-4023-a268-da4097fa44de/cYOwxii3ma.json" background="transparent" speed="1" style="width: 100%; height: 100%" loop autoplay direction="1" mode="normal"></lottie-player>
+                </div>
+                <div class="aboutUs">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Accusamus voluptas doloribus cupiditate ipsum aperiam 
+                    alias quo odit ipsam, possimus magni.
+                </div>
+            </div>
+
+            
+        </div>
+
+        <div class="help" id="help">
+            
+        </div>
+    </section>
+
+
+    <!-- The Modal for login -->
+    <div id="id01" class="modal">
+
+    <!-- Login form Content -->
+    <form class="modal-content animate" action="/" id="signIn">
+        <div class="logo" style="display: flex;justify-content: center;margin: 10px 0px;font-size: 2rem;">
+            <h1>SIGN-IN</h1>
+        </div>
+        <div class="container">
+        <label for="email"><b>Email</b></label>
+        <input type="email" placeholder="Enter your email" name="email" id="Lemail" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter your password" name="password" id="Lpas" required>
+        <input type="checkbox" onclick="showP2()">Show Passwords
+
+        <button type="submit">SIGN-IN</button>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1;border-radius: 10px;">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="" onclick="resetPassword(event)">password?</a></span>
+        </div>
+    </form>
+    </div>
+
+    <!-- The Modal for login -->
+    <div id="id02" class="modal">
+
+    <!-- Login form Content -->
+    <form class="modal-content animate" action="/" id="signUp">
+        <div class="logo" style="display: flex;justify-content: center;margin: 10px 0px;font-size: 2rem;">
+            <h1>SIGN-UP</h1>
+        </div>
+        <div class="container">
+        <label for="email"><b>Email</b></label>
+        <input type="email" placeholder="Enter your email" name="email" id="Semail" required>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter your password" name="password" id="Sp1" required>
+
+        <label for="Cpassword"><b>Confirm Password</b></label>
+        <input type="password" placeholder="Confirm your password" name="Cpassword" id="Sp2" required>
+        <input type="checkbox" onclick="showP()">Show Passwords
+
+        <button type="submit" >SIGN-UP</button>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1;border-radius: 10px;">
+        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="psw">Already have an account <a href="#" onclick="showlog()">SIGN-IN?</a></span>
+        </div>
+    </form>
+    </div>
+
+
+        <!-- The Modal for loading -->
+        <div id="id03" class="modal">
+            <div class="loader"></div>
+        </div>
+        <script>
+            // Function to get query string parameters
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Get the 'message' parameter from the query string
+            const message = getQueryParam('message');
+
+            // Display the message if it exists
+            if (message) {
+               
+                let error = decodeURIComponent(message);
+                alert(error);
+            }
+
+        </script>
+</body>
+    <script src="../js/landing.js"></script>
+</html>

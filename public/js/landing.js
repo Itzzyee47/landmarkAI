@@ -9,8 +9,11 @@ async function signUp(email, password) {
   const data = await response.json();
   if (response.ok) {
     console.log('User signed up:', data);
+    endLoading();
+    sessionStorage.setItem('user', data.email);
+    goto('/chat')
   } else {
-    console.error('Error signing up:', data.error);
+    alert('Error signing up:', data.error);
   }
 }
 
@@ -24,7 +27,10 @@ async function signIn(email, password) {
   });
   const data = await response.json();
   if (response.ok) {
-    alert('User signed in:', data);
+    console.log('User signed in:', data);
+    endLoading();
+    sessionStorage.setItem('user', data.email);
+    goto('/chat')
   } else {
     console.error('Error signing in:', data.error);
   }
@@ -99,7 +105,7 @@ document.getElementById('signIn').addEventListener('submit', (event) => {
 
   try {
       signIn(email, password);
-      endLoading();
+      
     } catch (error) {
       alert(`An error occured: ${error}`);
       endLoading();

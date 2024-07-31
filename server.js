@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const { initializeApp } = require('firebase/app');
-const { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } = require('firebase/auth');
+const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } = require('firebase/auth');
 const { getFirestore,collection, addDoc, where,getDocs, query, orderBy, } = require('firebase/firestore');
 
 //const {getRespons} = require('./public/js/model')
@@ -54,14 +54,14 @@ app.get('/', (req, res) => {
 });
 
 // Signup users.
-app.get('/signup', async (req, res) => {
+app.post('/signup', async (req, res) => {
     const { email, password } = req.body;
 
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
-        res.send({user: user.email, uid: user.uid });
         console.log('User created!!');
+        res.send({user});
     })
     .catch((error) => {
         res.send({error: `An error occured: ${error}` });
@@ -75,8 +75,9 @@ app.post('/signin', async (req, res) => {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
-        res.send({user: user.email, uid: user.uid });
         console.log('User logged-in!!');
+        res.send(({user}));
+        
     })
     .catch((error) => {
         res.send({error: `An error occured: ${error}` });
@@ -111,16 +112,16 @@ app.post('/getUserData', (req, res) => {
 });
 
 app.post('/saveMessage', async (req, res) => {
-    const { u, message,convoId } = req.body;
+    const { u, message,convoID } = req.body;
     try {
         if(u == 'bot'){
           await addDoc(collection(db, 'messages'), {
-            sender: 'bot',content: message,convoId,time: `${timeStamp()}`
+            sender: 'bot',content: message,convoID,time: `${timeStamp()}`
           });
           res.status(200);
         }else{
           await addDoc(collection(db, 'messages'), {
-            sender: u,content: message,convoId: convoId,time: `${timeStamp()}`
+            sender: u,content: message,convoId: convoID,time: `${timeStamp()}`
           });
           res.status(200);
         }
@@ -131,14 +132,23 @@ app.post('/saveMessage', async (req, res) => {
 })
 
 app.post('/getMessage', async (req, res) => {
-    const { convoId } = req.body;
-
+    const { convoID } = req.body;
+    
     try {
-        var snapshot = await getDocs(query(collection(db, 'messages'),where("convoId", "==", convoId),orderBy("time", "asc")));
-        res.send({snapshot});        
+        let respons = [];
+        var snapshot = await getDocs(query(collection(db, 'messages'),where("convoId", "==", convoID),orderBy("time", "asc")));
+        const result = snapshot.forEach((doc) => {
+            // Display each document's data
+            const data = doc.data();
+            const sender = data.sender;
+            const content = data.content;
+            respons.push({sender,content});
+        });
+        
+        res.send({snapshot:respons});        
     } catch (error) {
         res.send({error: `An error occured: ${error}` });
-        console.error('Error getting messages ', e);
+        console.error('Error getting messages: ', error);
     }
 })
 
@@ -152,7 +162,8 @@ app.post('/createConvo', async (req, res) =>{
         });
       
         const snapshot = await getDocs(query(collection(db, "conversations"),where("time", "==", time), limit(1)));
-        res.send({snapshot});
+        const result = snapshot.docs.map(doc => doc.data());
+        res.send({snapshot:result});
     } catch (error) {
         res.send({error: `An error occured: ${error}` });
         console.error('Error getting messages ', e);
@@ -164,12 +175,21 @@ app.post('/getConvo', async (req, res) =>{
     const time = timeStamp();
     const {currentUser} = req.body;
     try {
+        let respons = [];
         const snapshot = await getDocs(query(collection(db, "conversations"),where("user", "==", currentUser)));
-        res.send({snapshot});
+        const result = snapshot.forEach((doc) => {
+            // Display each document's data
+            const data = doc.data();
+            const id = doc.id;
+            const date = data.time
+            respons.push({id,date});
+        });
+       
+        res.send({ respons:respons});
 
     } catch (error) {
         res.send({error: `An error occured: ${error}` });
-        console.error('Error getting conversations ', e);
+        console.error('Error getting conversations ', error);
     }
 
 })

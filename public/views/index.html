@@ -26,7 +26,24 @@
     </style>
 </head>
 <body>
-    
+    <script>
+            // Function to get query string parameters
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Get the 'message' parameter from the query string
+            const message = getQueryParam('message');
+
+            // Display the message if it exists
+            if (message) {
+               
+                let error = decodeURIComponent(message);
+                alert(error);
+            }
+
+        </script>
 
     <div id="mySidenav" class="sidenav">
         <a href="" class="closebtn" onclick="closeNav()">&times;</a>
@@ -181,24 +198,11 @@
         <div id="id03" class="modal">
             <div class="loader"></div>
         </div>
-        <script>
-            // Function to get query string parameters
-            function getQueryParam(param) {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get(param);
-            }
 
-            // Get the 'message' parameter from the query string
-            const message = getQueryParam('message');
 
-            // Display the message if it exists
-            if (message) {
-               
-                let error = decodeURIComponent(message);
-                alert(error);
-            }
-
-        </script>
+        <script src="../js/landing.js"></script>
+        
+        
 </body>
-    <script src="../js/landing.js"></script>
+    
 </html>

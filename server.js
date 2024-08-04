@@ -176,7 +176,7 @@ app.post('/createConvo', async (req, res) =>{
 })
 
 app.post('/getConvo', async (req, res) =>{
-    const time = timeStamp();
+    
     const {currentUser} = req.body;
     try {
         let respons = [];

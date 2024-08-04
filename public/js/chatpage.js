@@ -20,22 +20,24 @@ window.signOutUser = signOutUser;
 
 
 
-async function getUserData() {
+function getUserData() {
     
-  const response = await fetch('/getUserData', {
+  fetch('/getUserData',{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     //JSON.stringify({ email, password })
     body: '',
-  });
-  const user = await response.json();
+  })
+  .then(response => response.json())
+  .then(data => {
         
     // User is signed in.
-    const email = user.email;
-    const displayName = user.displayName;
-    const photoURL = user.photoURL;
+    console.log(data);
+    const email = data.email;
+    const displayName = data.displayName;
+    const photoURL = data.photoURL;
     //console.log(user);
     // Make the user globally accessible
     document.getElementById('currentUser').textContent = email;
@@ -56,12 +58,13 @@ async function getUserData() {
     if(photoURL){
         document.getElementById('user-picture').src = photoURL;
     }
-            
-        
     
+  });
+               
 }
+
 getUserData();
-let currentUser = document.getElementById('currentUser').textContent;
+let currentUser = sessionStorage.getItem('user');
 
 //Updated typewriter function....
 function applyTypewriterEffect(markdownContent, element) {

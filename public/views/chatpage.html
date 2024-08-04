@@ -11,10 +11,10 @@
 <body id="bd" style="padding: ;">
     <div id="currentUser" style="display: none;"></div>
     <div class="h1">
-        <div class="nConvo" style="position:absolute;color:black;left:2px;border:none;" onclick="openNav()"> &#9776; </div>
+        <div class="nConvo" style="position:absolute;color:black;left:2px;border:none;font-weight: bold; font-size: 1.5rem;" onclick="openNav()"> &#9776; </div>
         <div id="logo" style="">
             
-            Zylla<small>g_0.1</small>
+            Zylla<small>g_0.5</small>
         </div>
         <div class="nConvo" id="cNconvo2" title="Create new conversation" style="color:grey;"><i class="fa fa-plus " ></i> </div>
         <div id="Uprofile" onclick="displayProfile()">
@@ -26,7 +26,8 @@
             <img src="" alt="profileImage" class="pp" id="User-picture">
             <text id="userName"></text>
             <div>
-                <button>Manage Profile</button><button>Leave a review</button>
+                <button class="button-M" onclick="goto('/manageProfile')">Manage Profile</button>
+                <button class="button-R" onclick="document.getElementById('id03').style.display='flex';hideProfile()">Leave a review</button>
             </div>
         </div>
     </div>
@@ -69,10 +70,10 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="c1" style="width:95%; height:98vh; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="c1" style="width:95%; height:93vh; display: flex; flex-direction: column; justify-content: space-between;">
 
-            <div class="c2" style="background-color: #0707076e; border-radius: 6px;">
-               <ul id="allConvosMobile" style="list-style: none;">
+            <div class="c2" style="background-color: #0707076e; border-radius: 6px; max-height: 400px; overflow: auto; margin-top: 15px;">
+               <ul id="allConvosMobile" style="list-style: none;padding-inline-start: 10px;">
                 <div style="margin-bottom: 12px; font-size:1rem;">Recent</div>
                     <li  class="hiddenTxt convo">
                         <i class="fa fa-comment"></i> Pass conversation.
@@ -81,17 +82,29 @@
             </div>
 
             <div class="c3" style="margin-bottom: 9px;">
-                <div class="ic " id="newConvo" onclick="signOutUser()" ><i class="fa fa-sign-out" ></i> <div class="hiddenTxt ">Sign-out</div></div><br>
-                <div style="margin-bottom: 30px;" onclick="goto('/')" class=" ic " id="newConvo"> <i class="fa fa-home "></i> <div class="hiddenTxt ">Home</div></div>
+                <div class="ic " id="newConvo" onclick="signOutUser()" ><i class="fa fa-sign-out" ></i> <div >Sign-out</div></div><br>
+                <div style="margin-bottom: 30px;" onclick="goto('/')" class=" ic " id="newConvo"> <i class="fa fa-home "></i> <div >Home</div></div>
             </div>
 
         </div>
     </div>
 
+    <!-- The Modal for login -->
+    <div id="id03" class="modal">
+        <form action="" id="review-form">
+            <h2>Leave a review</h2><br>
+            <textarea name="" id="" style="width: 80%; height: 70px;"></textarea><br>
+            <button type="submit">Submit</button><br>
+        </form>
+    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked-mangle/dist/marked-mangle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked-gfm-heading-id/dist/marked-gfm-heading-id.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+
     <script src="../js/chatpage.js" type="module"></script>
     <script>
         
@@ -154,11 +167,15 @@
             logo.style.zIndex = '';
             logo.style.webkitTextStroke = '';
           }
+          var modal = document.getElementById('id03');
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                modal.style.display = "none";
+                }
+            }
 
     </script>
 
-    
-
-   
 </body>
 </html>

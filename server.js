@@ -116,12 +116,12 @@ app.post('/saveMessage', async (req, res) => {
     try {
         if(u == 'bot'){
           await addDoc(collection(db, 'messages'), {
-            sender: 'bot',content: message,convoID,time: `${timeStamp()}`
+            sender: 'bot',content: message,convoId: convoID, time: `${timeStamp()}`
           });
           res.status(200);
         }else{
           await addDoc(collection(db, 'messages'), {
-            sender: u,content: message,convoId: convoID,time: `${timeStamp()}`
+            sender: u, content: message, convoId: convoID, time: `${timeStamp()}`
           });
           res.status(200);
         }
@@ -161,12 +161,12 @@ app.post('/createConvo', async (req, res) =>{
             time: `${time}`
         });
       
-        const snapshot = await getDocs(query(collection(db, "conversations"),where("time", "==", time), limit(1)));
+        const snapshot = await getDocs(query(collection(db, "conversations"),where("time", "==", time) ));
         const result = snapshot.docs.map(doc => doc.data());
         res.send({snapshot:result});
     } catch (error) {
         res.send({error: `An error occured: ${error}` });
-        console.error('Error getting messages ', e);
+        console.error('Error getting messages ', error);
     }
 
 })
@@ -194,18 +194,24 @@ app.post('/getConvo', async (req, res) =>{
 
 })
 
+app.get('/chat', checkAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/views', 'chatpage.html'));
+});
+
+app.get('/manageProfile', checkAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/views', 'manageProfile.html'));
+});
+
 app.get('/logout', function(req , res){
     signOut(auth).then(() => {
         console.log("user loged out")
-        res.redirect('/');     
+        res.status(200);   
     }).catch((error) => {
         res.send({error: `An error occured: ${error}` });
     });
 });
 
-app.get('/chat', checkAuth, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/views', 'chatpage.html'));
-});
+
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

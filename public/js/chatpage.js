@@ -1,5 +1,7 @@
 //import hljs from "https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js";
 import hljs from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/highlight.min.js';
+import { marked } from 'https://unpkg.com/marked@5.0.2/lib/marked.esm.js';
+
 
 function signOutUser(){
   const response = fetch('/logout', {
@@ -10,6 +12,7 @@ function signOutUser(){
     //JSON.stringify({ email, password })
     
   });
+  window.location.href = "/";
 
 }
 // Make the function globally accessible
@@ -57,6 +60,8 @@ async function getUserData() {
     
 }
 getUserData();
+let currentUser = document.getElementById('currentUser').textContent;
+
 //Updated typewriter function....
 function applyTypewriterEffect(markdownContent, element) {
   // Convert the Markdown content to HTML
@@ -178,7 +183,7 @@ document.getElementById('message-form').addEventListener('submit', (event) => {
   }
   userMessageInput.value = ""; // Clear user input after sending
   loader.style.display = "block";
-
+  console.log(userMessage, currentUser);
   // Add user message to chat history
   const userMessageElement = document.createElement('div');
   userMessageElement.classList.add('chat-message', 'user-message');
@@ -242,7 +247,7 @@ let chatsMobile = document.getElementById('allConvosMobile');
 
 // Test case to get all conversations from the database belonging to the current user.
 
-let currentUser = document.getElementById('currentUser').textContent;
+
 
 function createMessageBubble(sender,message){
   // Add user message to chat history
@@ -463,6 +468,6 @@ newConvoBtn2.addEventListener('click', () => {createNewCOnversation();});
 
 getConvos();
 getConvosMview();
-getUserData();
+
 console.log('DOne');
 hljs.highlightAll();

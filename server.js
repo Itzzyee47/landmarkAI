@@ -7,7 +7,7 @@ const { getFirestore,collection, addDoc, where,getDocs, query, orderBy, } = requ
 //const {getRespons} = require('./public/js/model')
 const path = require('path');
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());

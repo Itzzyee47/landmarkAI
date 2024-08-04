@@ -45,7 +45,7 @@
                     &#10133;
                 </div>
             </div>
-            <div class="userEmail">
+            <div id="userEmail" class="userEmail">
                 testemail@gmail.com
             </div>
         </div>
@@ -57,7 +57,7 @@
                 FirstName:
             </div>
             <div class="d-data">
-                <div class="data">
+                <div id="firstName" class="data">
                     Gena
                 </div>
                 <div class="option" onclick="document.getElementById('id03').style.display = 'flex';">
@@ -70,7 +70,7 @@
                 LastName:
             </div>
             <div class="d-data">
-                <div class="data">
+                <div id="lastName" class="data">
                     Zylla
                 </div>
                 <div class="option" onclick="document.getElementById('id03').style.display = 'flex';">
@@ -289,7 +289,17 @@
         var modal = document.getElementById('id01');
         var modal2 = document.getElementById('id02');
         var modal3 = document.getElementById('id03');
+        var userEmail = document.getElementById('userEmail');
+        var firstName = document.getElementById('firstName');
+        var lastName = document.getElementById('lastName');
         
+        // Setting user details based on signed in user...
+        console.log(userEmail, firstName, lastName);
+        userEmail.textContent = sessionStorage.getItem("user");
+        let getName = sessionStorage.getItem("userName");
+        firstName.textContent = getName ? getName.split(' ')[0] : 'Not set';
+        lastName.textContent = getName ? getName.split(' ')[1] : 'Not set';
+
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
           if (event.target == modal || event.target == modal2 || event.target == modal3) {
@@ -302,6 +312,7 @@
         function goBack() {
             window.history.back()
           }
+
     </script>
 </body>
 </html>

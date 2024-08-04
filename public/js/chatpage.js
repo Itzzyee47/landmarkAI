@@ -43,6 +43,7 @@ async function getUserData() {
     // Display user data
     document.getElementById('user-email').textContent = email;
     if(displayName){
+      sessionStorage.setItem('userName', displayName);
       // Assuming the first name is the first part of the display name
       const firstName = displayName ? displayName.split(' ')[0] : '';
       document.getElementById('userName').textContent = `Hi, ${firstName}`;
@@ -413,7 +414,6 @@ async function getConvos(){
 
 async function getConvosMview(){  
   try {
-    
     const response = await fetch('/getConvo', {
         method: 'POST',
         headers: {
@@ -422,10 +422,11 @@ async function getConvosMview(){
         //JSON.stringify({ email, password })
         body: JSON.stringify({ currentUser }),
       });
-      var data = await response.json();
-      const querySnapshot = data.respons;
+    var data = await response.json();
+    const querySnapshot = data.respons;
+    //console.log(data.respons);
 
-    if (!querySnapshot.empty) {
+    if (querySnapshot.length != 0) {
       //load all conversations in recent convo list...
       try {
         querySnapshot.forEach((doc) => {
@@ -433,24 +434,27 @@ async function getConvosMview(){
           const t = doc.date;
           const id = doc.id;
           let passChat = document.createElement("li");
-          passChat.classList.add("hiddenTxt"); 
           passChat.classList.add("convo");
           passChat.addEventListener('click', ()=>{loadConvo(doc.id);});
           passChat.title = id;
           passChat.id = id;
-          //console.log(t);
           const date = new Date(Number(t));//convert string date to actual date format
-          //console.log(t, id);
           passChat.innerText = date;
           chatsMobile.appendChild(passChat);
           //console.log(id);
           console.log(JSON.stringify(data));
         });
-    } catch (error) {
-      console.log(`There was an error loading the messages: ${error}`);
-      alert(`There was an error loading the messages: ${error}`);
-    }
+
+        // Load the messages of the latest conversation
+       
+
+      } catch (error) {
+        console.log(`There was an error loading the messages: ${error}`);
+        alert(`There was an error loading the messages: ${error}`);
+      }
       
+    }else {
+
     }
 
   } catch (error) {
@@ -467,6 +471,7 @@ newConvoBtn.addEventListener('click', () => {createNewCOnversation();});
 newConvoBtn2.addEventListener('click', () => {createNewCOnversation();});
 
 getConvos();
+
 getConvosMview();
 
 console.log('DOne');

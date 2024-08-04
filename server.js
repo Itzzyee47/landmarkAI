@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const { initializeApp } = require('firebase/app');
-const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } = require('firebase/auth');
+const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } = require('firebase/auth');
+const { getStorage, ref, uploadBytes, getDownloadURL } =  require('firebase/storage');
 const { getFirestore,collection, addDoc, where,getDocs, query, orderBy, } = require('firebase/firestore');
 
 //const {getRespons} = require('./public/js/model')
@@ -29,11 +30,13 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
+const storage = getStorage(firebaseApp);
 
 // Middleware to check if the user is authenticated
 const checkAuth = (req, res, next) => {
     auth.onAuthStateChanged(user => {
         if (!user) {
+            
             return res.redirect('/?message=Please+login+or+signup'); 
         }else{
             next();
@@ -71,10 +74,11 @@ app.post('/signup', async (req, res) => {
 // SignIn users.
 app.post('/signin', async (req, res) => {
     const { email, password } = req.body;
-    console.log("Attempting to signin",email, password);
+    console.log("Attempting to signin",email);
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
+       
         console.log('User logged-in!!');
         res.send(({user}));
         
@@ -202,9 +206,52 @@ app.get('/manageProfile', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public/views', 'manageProfile.html'));
 });
 
+app.post('/updateUserName', (req, res) => {
+    const {firstName, lastName} = req.body;
+    const user = auth.currentUser;
+    const newDisplayName = `${firstName} ${lastName}`;
+    try {
+        if (user) {
+            // Update the user's display name
+            updateProfile(user, {
+              displayName: newDisplayName,
+            });
+        }
+        res.status(202);
+    } catch (error) {
+        res.status(302).send({ error });
+    }
+});
+
+app.post('/updateUPicture', async (req, res) => {
+    const { file } = req.body;
+    const userId = auth.currentUser.uid;
+    try {
+        // Define the storage path for the user's profile picture
+        const storageRef = ref(storage, `profilePictures/${userId}/${file.name}`);
+    
+        // Upload the file to Firebase Storage
+        const snapshot = await uploadBytes(storageRef, file);
+    
+        if(snapshot){
+            // Get the download URL of the uploaded file
+            const downloadURL = await getDownloadURL(storageRef);
+            // Update the user's profile in Firebase Authentication
+            await updateProfile(auth.currentUser, {
+            photoURL: downloadURL,
+            });
+
+            res.status(200);
+        }
+    } catch (error) {
+        res.status(302).send({ error });
+    }
+})
+
 app.get('/logout', function(req , res){
     signOut(auth).then(() => {
         console.log("user loged out")
+        sessionStorage.clear();
         res.status(200);   
     }).catch((error) => {
         res.send({error: `An error occured: ${error}` });
@@ -214,5 +261,6 @@ app.get('/logout', function(req , res){
 
 
 app.listen(port, () => {
+    
     console.log(`Server is running at http://localhost:${port}`);
 });

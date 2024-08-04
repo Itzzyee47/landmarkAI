@@ -27,10 +27,13 @@ async function signIn(email, password) {
   });
   const data = await response.json();
   if (response.ok) {
-    console.log('User signed in:', data);
+    console.log('User signed in');
     endLoading();
-    sessionStorage.setItem('user', data.email);
-    goto('/chat')
+    sessionStorage.clear();
+    sessionStorage.setItem('user', data.user.email);
+    sessionStorage.setItem('Uuid', data.user.uid);
+    goto('/chat');
+    
   } else {
     console.error('Error signing in:', data.error);
   }

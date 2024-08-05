@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const multer = require('multer');
 const { initializeApp } = require('firebase/app');
 const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } = require('firebase/auth');
 const { getStorage, ref, uploadBytes, getDownloadURL } =  require('firebase/storage');
@@ -9,6 +10,9 @@ const { getFirestore,collection, addDoc, where,getDocs, query, orderBy, } = requ
 const path = require('path');
 const app = express();
 const port = process.env.PORT || 4000;
+
+// Configure Multer for file uploads
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
@@ -51,7 +55,7 @@ function timeStamp() {
   }
 
 
-// Serve HTML file
+// Serve HTML profilePic
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/views', 'index.html'));
 });
@@ -223,18 +227,18 @@ app.post('/updateUserName', (req, res) => {
     }
 });
 
-app.post('/updateUPicture', async (req, res) => {
-    const { file } = req.body;
+app.post('/updateUPicture', upload.single('profilePic'), async (req, res) => {
+    const { profilePic } = req.file;
     const userId = auth.currentUser.uid;
     try {
         // Define the storage path for the user's profile picture
-        const storageRef = ref(storage, `profilePictures/${userId}/${file.name}`);
+        const storageRef = ref(storage, `profilePictures/${userId}/${profilePic.name}`);
     
-        // Upload the file to Firebase Storage
-        const snapshot = await uploadBytes(storageRef, file);
+        // Upload the profilePic to Firebase Storage
+        const snapshot = await uploadBytes(storageRef, profilePic.buffer);
     
         if(snapshot){
-            // Get the download URL of the uploaded file
+            // Get the download URL of the uploaded profilePic
             const downloadURL = await getDownloadURL(storageRef);
             // Update the user's profile in Firebase Authentication
             await updateProfile(auth.currentUser, {

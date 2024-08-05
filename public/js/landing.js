@@ -30,7 +30,7 @@ async function signIn(email, password) {
     console.log('User signed in');
     endLoading();
     sessionStorage.clear();
-    sessionStorage.setItem('user', data.user.email);
+    sessionStorage.setItem('user-email', data.user.email);
     sessionStorage.setItem('Uuid', data.user.uid);
     goto('/chat');
     
@@ -89,7 +89,7 @@ document.getElementById('signUp').addEventListener('submit', (event) => {
   if(pass == cPass){
 
     try {
-      signUp(email, password);
+      signUp(email, pass);
     } catch (error) {
       endLoading();
       alert(`An error occured: ${error}`);

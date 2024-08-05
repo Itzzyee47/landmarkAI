@@ -64,7 +64,7 @@ function getUserData() {
 }
 
 getUserData();
-let currentUser = sessionStorage.getItem('user');
+let currentUser = sessionStorage.getItem('user-email');
 
 //Updated typewriter function....
 function applyTypewriterEffect(markdownContent, element) {
@@ -111,11 +111,12 @@ function applyTypewriterEffect(markdownContent, element) {
 
       hljs.highlightAll();
 
-  marked.setOptions({
-      mangle: false,
-      headerIds: false
-  });
+  
 }
+marked.setOptions({
+  mangle: false,
+  headerIds: false
+});
 
 
 const chatHistory = document.getElementById('chat-history');

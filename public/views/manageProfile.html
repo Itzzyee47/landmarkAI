@@ -263,56 +263,28 @@
     </div>
 
     <div id="id02" class="modal">
-        <form class="updateImgForm" action="">
+        <form class="updateImgForm" onsubmit="updateImage(event)" enctype="multipart/form-data">
             <h2 style="font-family:'Dosis', sans-serif; text-align:center;">
                 Update profile image
             </h2>
-            <input type="file" name="udateImage" id="">
+            <input type="file" name="udateImage" accept="image/*" id="imgFile">
             <button type="submit" class="button" style="align-self: center;"> Update </button>
         </form>
     </div>
 
     <div id="id03" class="modal">
-        <form class="updateUdetails" action="">
+        <form class="updateUdetails" onsubmit="updateUdetails(event)" >
             <h2 style="font-family:'Dosis', sans-serif; text-align:center;">
                 Update your username
             </h2>
             <label for="firstName">FirstName:</label>
-            <input type="text" name="firstName" id="" value="Gena">
+            <input type="text" name="firstName" id="UFN" value="Gena">
             <label for="lasttName">LastName:</label>
-            <input type="text" name="lastName" id="" value="Zylla">
+            <input type="text" name="lastName" id="ULN" value="Zylla">
             <button type="submit" class="button" style="align-self: center;"> Update </button>
         </form>
     </div>
 
-    <script>
-        var modal = document.getElementById('id01');
-        var modal2 = document.getElementById('id02');
-        var modal3 = document.getElementById('id03');
-        var userEmail = document.getElementById('userEmail');
-        var firstName = document.getElementById('firstName');
-        var lastName = document.getElementById('lastName');
-        
-        // Setting user details based on signed in user...
-        console.log(userEmail, firstName, lastName);
-        userEmail.textContent = sessionStorage.getItem("user");
-        let getName = sessionStorage.getItem("userName");
-        firstName.textContent = getName ? getName.split(' ')[0] : 'Not set';
-        lastName.textContent = getName ? getName.split(' ')[1] : 'Not set';
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-          if (event.target == modal || event.target == modal2 || event.target == modal3) {
-            modal.style.display = "none";
-            modal2.style.display = "none";
-            modal3.style.display = "none";
-          }
-        }
-
-        function goBack() {
-            window.history.back()
-          }
-
-    </script>
+    <script src="../js/manageProfile.js"></script>
 </body>
 </html>

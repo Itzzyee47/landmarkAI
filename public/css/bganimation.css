@@ -30,22 +30,22 @@
 
 .circles li:nth-child(1){
     left: 25%;
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
     animation-delay: 0s;
 }
 .circles li:nth-child(2){
     left: 10%;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     animation-delay: 2s;
     animation-duration: 12s;
 }
 
 .circles li:nth-child(3){
     left: 70%;
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    height: 50px;
     animation-delay: 2s;
 }
 
@@ -96,8 +96,8 @@
 
 .circles li:nth-child(10){
     left: 85%;
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     animation-delay: 0s;
     animation-duration: 8s;
 }
@@ -106,12 +106,12 @@
     left: 25%;
     width: 80px;
     height: 80px;
-    animation-delay: 0s;
+    animation-delay: 1s;
 }
 .circles li:nth-child(12){
-    left: 10%;
-    width: 20px;
-    height: 20px;
+    left: 30%;
+    width: 40px;
+    height: 40px;
     animation-delay: 1s;
     animation-duration: 8s;
 }
@@ -157,7 +157,7 @@
     width: 25px;
     height: 25px;
     animation-delay: 10s;
-    animation-duration: 45s;
+    animation-duration: 15s;
 }
 
 .circles li:nth-child(19){
@@ -165,7 +165,7 @@
     width: 15px;
     height: 15px;
     animation-delay: 1s;
-    animation-duration: 35s;
+    animation-duration: 15s;
 }
 
 .circles li:nth-child(20){

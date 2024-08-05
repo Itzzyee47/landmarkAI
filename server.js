@@ -9,7 +9,7 @@ const { getFirestore,collection, addDoc, where,getDocs, query, orderBy, } = requ
 //const {getRespons} = require('./public/js/model')
 const path = require('path');
 const app = express();
-const port = 4040;
+const port = 4000;
 
 // Configure Multer for file uploads
 const upload = multer({ storage: multer.memoryStorage() });

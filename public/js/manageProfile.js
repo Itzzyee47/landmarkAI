@@ -4,6 +4,9 @@ var modal3 = document.getElementById('id03');
 var userEmail = document.getElementById('userEmail');
 var firstName = document.getElementById('firstName');
 var lastName = document.getElementById('lastName');
+firstName.textContent =  'Not set';
+lastName.textContent = 'Not set';
+  
 
 // Setting user details based on signed in user...
 console.log(userEmail, firstName, lastName);
@@ -30,7 +33,7 @@ function getUserData() {
   
       if(displayName){
         // Assuming the first name is the first part of the display name
-        firstName.textContent = displayName ? displayName.split(' ')[0] : 'Not set';
+        firstName.textContent = displayName ? displayName.split(' ')[0] :'Not set';
         lastName.textContent = displayName ? displayName.split(' ')[1] : 'Not set';
       }
       

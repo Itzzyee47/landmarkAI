@@ -6,6 +6,23 @@
     <title>LSA profiles page</title>
     <link rel="stylesheet" href="../css/manageProfile.css">
     <link rel="stylesheet" href="../css/bganimation.css">
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid blue;
+            border-bottom: 16px solid blue;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+          }
+          
+          @keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+          }
+    </style>
 </head>
 <body>
     <div class="head">
@@ -263,7 +280,7 @@
     </div>
 
     <div id="id02" class="modal">
-        <form class="updateImgForm" onsubmit="updateImage(event)" enctype="multipart/form-data">
+        <form class="updateImgForm" id="updateImgForm" >
             <h2 style="font-family:'Dosis', sans-serif; text-align:center;">
                 Update profile image
             </h2>
@@ -271,18 +288,23 @@
             <button type="submit" class="button" style="align-self: center;"> Update </button>
         </form>
     </div>
-
+ 
     <div id="id03" class="modal">
         <form class="updateUdetails" onsubmit="updateUdetails(event)" >
             <h2 style="font-family:'Dosis', sans-serif; text-align:center;">
                 Update your username
             </h2>
             <label for="firstName">FirstName:</label>
-            <input type="text" name="firstName" id="UFN" value="Gena">
+            <input type="text" name="firstName" id="UFN" value="">
             <label for="lasttName">LastName:</label>
-            <input type="text" name="lastName" id="ULN" value="Zylla">
+            <input type="text" name="lastName" id="ULN" value="">
             <button type="submit" class="button" style="align-self: center;"> Update </button>
         </form>
+    </div>
+
+    <!-- The Modal for login -->
+    <div id="id04" class="modal">
+        <div class="loader"></div> 
     </div>
 
     <script src="../js/manageProfile.js"></script>

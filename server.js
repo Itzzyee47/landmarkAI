@@ -221,15 +221,15 @@ app.post('/updateUserName', (req, res) => {
               displayName: newDisplayName,
             });
         }
-        res.status(202);
+        res.status(202).send({message:'User name updated!! May take a few seconds to take effect.'});
     } catch (error) {
         res.status(302).send({ error });
     }
 });
-
+ 
 app.post('/updateUPicture', upload.single('profilePic'), async (req, res) => {
-    const { profilePic } = req.file;
-    const userId = auth.currentUser.uid;
+    const profilePic = req.file;
+    const userId = auth.currentUser.uid; 
     try {
         // Define the storage path for the user's profile picture
         const storageRef = ref(storage, `profilePictures/${userId}/${profilePic.name}`);
@@ -245,10 +245,11 @@ app.post('/updateUPicture', upload.single('profilePic'), async (req, res) => {
             photoURL: downloadURL,
             });
 
-            res.status(200);
+            res.status(200).send({pic:downloadURL});
         }
     } catch (error) {
-        res.status(302).send({ error });
+        console.log(error);
+        res.status(301).send({ error });
     }
 })
 

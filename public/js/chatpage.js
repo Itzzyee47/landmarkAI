@@ -56,7 +56,8 @@ function getUserData() {
     }
     
     if(photoURL){
-        document.getElementById('user-picture').src = photoURL;
+      document.getElementById('Uprofile').style.backgroundImage = `url(${photoURL})`;
+      document.getElementById('User-picture').src = photoURL;
     }
     
   });
@@ -285,6 +286,7 @@ async function loadMessages(id) {
     return;
   }
   const convoID = id;
+  loader.style.display = "block";
   console.log('convoid:',convoID);
     const response = await fetch('/getMessage', {
       method: 'POST',
@@ -311,6 +313,7 @@ async function loadMessages(id) {
       createMessageBubble(sender, message);
     });
     hljs.highlightAll();
+    loader.style.display = "none";
   }
   if (chatHistory.children.length >= 1) {
     document.getElementById('p1').style.display = "none";
@@ -321,7 +324,7 @@ async function loadMessages(id) {
 
 //localStorage.clear();
 async function createNewCOnversation(){
-  
+  loader.style.display = "block";
   const response = await fetch('/createConvo', {
       method: 'POST',
       headers: {
@@ -336,6 +339,8 @@ async function createNewCOnversation(){
   console.log(doc);
   // Setting the current conversations id to the newly created conversation... 
   Convo.attributes[2].textContent = doc.id;
+  alert('New conversation started');
+  loader.style.display = "none";
   chatHistory.innerHTML = ""; //Clear chathistory to start new conversation..
 }
 
@@ -380,18 +385,18 @@ async function getConvos(){
           passChat.addEventListener('click', ()=>{loadConvo(doc.id);});
           passChat.title = id;
           passChat.id = id;
-          console.log(t);
+          //console.log(t);
           const date = new Date(Number(t));//convert string date to actual date format
-          console.log(t, id);
+          //console.log(t, id);
           passChat.innerText = date;
           chats.appendChild(passChat);
           //console.log(id);
-          console.log(JSON.stringify(data));
+          //console.log(JSON.stringify(data));
         });
 
         // Load the messages of the latest conversation
         const latestDoc = querySnapshot[0];
-        console.log(latestDoc.id);
+        //console.log(latestDoc.id);
         //load messages blonging to conversation of id....
         Convo.attributes[2].textContent = latestDoc.id;
         loadMessages(latestDoc.id);
@@ -404,8 +409,11 @@ async function getConvos(){
       
     }else {
        // No conversations found, create a new one
-       createNewCOnversation();
-       location.reload();
+       if(chats.children.length == 1){
+          createNewCOnversation();
+          window.location.href = "/chat";
+       }
+       
     
     }
 

@@ -56,7 +56,9 @@ pre>code {
     height: 35px;
     border: none;
     border-radius: 18.5px;
+    background-image: url('');
     background-color: gainsboro;
+    background-size: contain;
     margin-right: 5%;
     position: relative;
 }

@@ -4,7 +4,7 @@ const multer = require('multer');
 const { initializeApp } = require('firebase/app');
 const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } = require('firebase/auth');
 const { getStorage, ref, uploadBytes, getDownloadURL } =  require('firebase/storage');
-const { getFirestore,collection, addDoc, where,getDocs, query, orderBy, } = require('firebase/firestore');
+const { getFirestore,collection, deleteDoc, doc, addDoc, where,getDocs, query, orderBy, } = require('firebase/firestore');
 
 //const {getRespons} = require('./public/js/model')
 const path = require('path');
@@ -252,6 +252,36 @@ app.post('/updateUPicture', upload.single('profilePic'), async (req, res) => {
         res.status(301).send({ error });
     }
 })
+
+app.post('/deleteConvo', async (req, res) => {
+    const { id } = req.body;
+  
+    try {
+      // Reference to the messages collection and query for messages with the conversation ID
+      const messagesRef = collection(db, 'messages');
+      const q = query(messagesRef, where('convoID', '==', id));
+      const querySnapshot = await getDocs(q);
+  
+      // Delete all messages belonging to the conversation
+      const deletePromises = [];
+      querySnapshot.forEach((messageDoc) => {
+        deletePromises.push(deleteDoc(messageDoc.ref));
+      });
+      await Promise.all(deletePromises);
+
+      // Reference to the conversation document
+      const convoRef = doc(db, 'conversations', id);
+      // Delete the conversation document
+      await deleteDoc(convoRef);
+  
+      // Respond with success
+      res.status(200).send({message:'Conversation and its messages deleted successfully'});
+
+    } catch (error) {
+      console.error('Error deleting conversation or messages: ', error);
+      res.status(500).send('An error occurred while deleting the conversation and its messages');
+    }
+  });
 
 app.get('/logout', function(req , res){
     signOut(auth).then(() => {

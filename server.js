@@ -164,14 +164,12 @@ app.post('/createConvo', async (req, res) =>{
     const time = timeStamp();
     const {currentUser} = req.body;
     try {
-        await addDoc(collection(db, "conversations"), {
+        const addToDb = await addDoc(collection(db, "conversations"), {
             user: currentUser,
             time: `${time}`
         });
       
-        const snapshot = await getDocs(query(collection(db, "conversations"),where("time", "==", time) ));
-        const result = snapshot.docs.map(doc => doc.data());
-        res.send({snapshot:result});
+        res.send({snapshot:addToDb.id});
     } catch (error) {
         res.send({error: `An error occured: ${error}` });
         console.error('Error getting messages ', error);

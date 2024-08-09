@@ -335,14 +335,14 @@ async function createNewCOnversation(){
     });
   var data = await response.json();
   const querySnapshot = data.snapshot;
-  const doc = querySnapshot[0];
+  
   alert('New conversation started');
-  console.log(doc);
+  console.log(querySnapshot);
   // Setting the current conversations id to the newly created conversation... 
-  Convo.attributes[2].textContent = doc.id;
+  Convo.attributes[2].textContent = querySnapshot;
   loader.style.display = "none";
   chatHistory.innerHTML = ""; //Clear chathistory to start new conversation..
-  location.reload();
+  //location.reload();
 }
 
 async function loadConvo(id){

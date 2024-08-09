@@ -187,8 +187,9 @@ async function deleteConvo(id) {
 
     var data = await response.json();
     if( response.ok){
-      
+      closeModal();
       alert(data.message);
+      location.reload();
     }
   
   } catch (error) {
@@ -212,11 +213,11 @@ function closeModal(){
     modal4.style.display = "none";
 }
 function startLoading(){
-    var modal3 = document.getElementById('id03');
+    var modal3 = document.getElementById('id04');
     modal3.style.display = "flex";
   }
   function endLoading(){
-    var modal3 = document.getElementById('id03');
+    var modal3 = document.getElementById('id04');
     modal3.style.display = "none";
   }
 

@@ -390,6 +390,9 @@ form {
     .welImg>img{
         width: 300px;
     } 
+    .message2{
+        
+    }
     nav{
         height: fit-content;
         flex-direction: row;

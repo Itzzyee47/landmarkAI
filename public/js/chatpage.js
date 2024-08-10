@@ -236,6 +236,7 @@ document.getElementById('message-form').addEventListener('submit', (event) => {
       })
       .catch((error) => {
         console.log('Error fetching response:', error);
+        alert('Sorry the network sims to be busy, please reload the page and try again!');
       });
     }
   } catch (err) {
@@ -410,7 +411,7 @@ async function getConvos(){
       
     }else {
        // No conversations found, create a new one
-       if(chats.children.length == 1){
+       if(chats.children.length == 2){
           createNewCOnversation();
           window.location.href = "/chat";
        }

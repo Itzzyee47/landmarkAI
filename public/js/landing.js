@@ -196,6 +196,7 @@ function showSect(num){
             sections[i].style.display = "none";
         }
     }
+    closeNav();
 }
 showSect(0);
 

@@ -47,9 +47,9 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#" class="nI">Home</a>
-        <a href="#" class="nI">About</a>
-        <a href="#" class="nI">Help</a>
+        <a onclick="showSect(0)" class="nI">Home</a>
+        <a onclick="showSect(1)" class="nI">About</a>
+        <a onclick="showSect(2)" class="nI">Help</a>
         <a href="#" class="nI">Chat</a>
         <div class="sign" style="display: block;">
             <div class="signIn" onclick="document.getElementById('id01').style.display='flex';closeNav()">Sign in</div>
@@ -108,19 +108,19 @@
             <div class="half">
                 <div class="aboutUs">
                     Zylla is a chatbot designed to answer questions about the institude of Landmark Buea.
-                    She is trained on data gotten from the LMUI website and makes use of current AI technologies 
+                    She is trained on data gotten from the LMUI website and makes use of current AI technologies(Gemini) 
                     to assist students or personels with research and more.
                 </div>
                 <div class="aniI" >
                     <lottie-player src="https://lottie.host/d9530aa3-dd21-481d-8148-f9a878f6b3ab/Wj4Wt9iY80.json" background="transparent" speed="1" style="width: 100%; height: 100%" loop autoplay direction="1" mode="normal"></lottie-player>
                 </div>
             </div>
-            <div class="half">
+            <div class="half halfI">
                 <div class="aniI" style="margin-left: 10%;">
                     <lottie-player src="https://lottie.host/abd3f40a-836c-4023-a268-da4097fa44de/cYOwxii3ma.json" background="transparent" speed="1" style="width: 100%; height: 100%" loop autoplay direction="1" mode="normal"></lottie-player>
                 </div>
                 <div class="aboutUs">
-                    Ensuring safty and scalability by using cloud service providers
+                    Ensuring safty and scalability by using cloud service providers(Firebase)
                      to manage users and user data alike. 
                     Avialable 24\7 with reliable data gotten from LMU administration.
                 </div>
@@ -171,16 +171,16 @@
             <h1 style="font-size:2.2rem;">SIGN-UP</h1>
         </div>
         <div class="container">
-        <label for="email"><b>Email</b></label>
+        <label for="email"><b>Email*</b></label>
         <input type="email" placeholder="Enter your email" name="email" id="Semail" required>
 
         <label for="matricle"><b>Matricule</b></label>
         <input type="text" placeholder="Enter your student matricle" name="matricle" id="Smatricle" >
 
-        <label for="password"><b>Password</b></label>
+        <label for="password"><b>Password*</b></label>
         <input type="password" placeholder="Enter your password" name="password" id="Sp1" required>
 
-        <label for="Cpassword"><b>Confirm Password</b></label>
+        <label for="Cpassword"><b>Confirm Password*</b></label>
         <input type="password" placeholder="Confirm your password" name="Cpassword" id="Sp2" required>
         <input type="checkbox" onclick="showP()">Show Passwords
 

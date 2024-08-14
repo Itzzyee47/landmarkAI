@@ -177,6 +177,24 @@ app.post('/createConvo', async (req, res) =>{
 
 })
 
+app.post('/sendFeedback', async (req, res) =>{
+    const time = timeStamp();
+    const {currentUser, feedback} = req.body;
+    try {
+        const addToDb = await addDoc(collection(db, "feedbacks"), {
+            user: currentUser,
+            feedback: feedback,
+            time: `${time}`
+        });
+      
+        res.send({message:'Feedback sucessfully sent!'});
+    } catch (error) {
+        res.send({error: `An error occured: ${error}` });
+        console.error('Error sending feedback ', error);
+    }
+
+})
+
 app.post('/getConvo', async (req, res) =>{
     
     const {currentUser} = req.body;

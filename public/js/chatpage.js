@@ -156,6 +156,30 @@ function isMarkdown(text) {
   return markdownPatterns.some(pattern => pattern.test(text));
 }
 
+document.getElementById('review-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  let feedback = document.getElementById('feedback');
+  feedback = feedback.value;
+  try {
+    const sendReview = await fetch('/sendFeedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      //JSON.stringify({ email, password })
+      body: JSON.stringify({ currentUser, feedback }),
+    });
+    const data = await sendReview.json();
+    if(data){
+      alert(data.message);
+      location.reload();
+    }
+  } catch (error) {
+    alert('The was a complication sending your feedback, please check your internet connection!')
+  }
+
+}
+)
 async function saveChatMessage(message,u) {
   try {
     let convoID = Convo.attributes[2].textContent;

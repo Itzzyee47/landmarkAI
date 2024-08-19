@@ -30,6 +30,7 @@ async function signIn(email, password) {
     console.log('User signed in');
     endLoading();
     sessionStorage.clear();
+    console.log(data.user.email);
     sessionStorage.setItem('user-email', data.user.email);
     sessionStorage.setItem('Uuid', data.user.uid);
     goto('/chat');

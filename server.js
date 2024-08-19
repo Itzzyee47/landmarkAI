@@ -226,6 +226,10 @@ app.get('/manageProfile', checkAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'public/views', 'manageProfile.html'));
 });
 
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/views', 'dashboard.html'));
+});
+
 app.post('/updateUserName', (req, res) => {
     const {firstName, lastName} = req.body;
     const user = auth.currentUser;

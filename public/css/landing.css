@@ -302,7 +302,6 @@ form {
     left: 0;
     top: 0;
     justify-content: center;
-    align-items: center;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
@@ -373,6 +372,7 @@ form {
         margin-left: 0;
         margin-top: 1rem;
         padding: 0 5%;
+        justify-content: space-evenly;
     }
     .I2 {
         font-size: 1.5rem;

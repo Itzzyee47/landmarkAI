@@ -143,8 +143,10 @@ async function getConvos(){
           const t = doc.date;
           const id = doc.id;
           const date = new Date(Number(t));//convert string date to actual date format
+          let options = { weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' };
+          var D = date.toLocaleDateString('en-US', options);
           let elm = `
-              <div class="convoData" title='${id}'>${date}</div>
+              <div class="convoData" title='${id}'>${D}</div>
               <div class="convoActions">
                   <div class="edit">&#128221;</div>
                   <div class="delete" onclick="deleteConvo('${id}') ">&#10060;</div>

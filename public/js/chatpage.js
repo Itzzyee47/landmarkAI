@@ -414,7 +414,9 @@ async function getConvos(){
           //console.log(t);
           const date = new Date(Number(t));//convert string date to actual date format
           //console.log(t, id);
-          passChat.innerText = date;
+          
+          let options = { weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' };
+          passChat.innerText = date.toLocaleDateString('en-US', options);
           chats.appendChild(passChat);
           //console.log(id);
           //console.log(JSON.stringify(data));
@@ -477,7 +479,9 @@ async function getConvosMview(){
           passChat.title = id;
           passChat.id = id;
           const date = new Date(Number(t));//convert string date to actual date format
-          passChat.innerText = date;
+         
+          let options = { weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' };
+          passChat.innerText = date.toLocaleDateString('en-US', options);
           chatsMobile.appendChild(passChat);
           //console.log(id);
           console.log(JSON.stringify(data));

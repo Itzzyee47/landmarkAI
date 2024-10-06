@@ -33,6 +33,9 @@ nav{
     box-shadow: 1px 1px 9px #d7d4d478;
 }
 .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-left: 5%;
     font-family: system-ui;
     font-weight: 900;
@@ -408,7 +411,7 @@ form {
     .logo{
         font-size: 2.1rem;
         margin-left: 2%;
-        margin-bottom: 10px;
+       
     }
     .pages{
         font-weight: 700;

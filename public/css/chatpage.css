@@ -43,6 +43,8 @@ pre>code {
     transition: 0.2s;
 }
 #logo{
+    display: flex;
+    align-items: center;
     font-family: system-ui;
     font-weight: 900;
     font-size: 2rem;

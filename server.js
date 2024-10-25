@@ -273,6 +273,29 @@ app.post('/updateUPicture', upload.single('profilePic'), async (req, res) => {
     }
 })
 
+app.post('/updateUPictureM',  upload.single('profilePic'), async (req, res) => {
+    const profilePic = req.file;
+    const userId = req.body.id;
+    try {
+        // Define the storage path for the user's profile picture
+        const storageRef = ref(storage, `profilePictures/${userId}/proPic`);
+    
+        // Upload the profilePic to Firebase Storage
+        const snapshot = await uploadBytes(storageRef, profilePic.buffer);
+    
+        if(snapshot){
+            // Get the download URL of the uploaded profilePi
+            console.log('Picture uploded sucessfully!!')
+            const downloadURL = await getDownloadURL(storageRef);
+
+            res.status(200).send({downloadURL});
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(301).send({ error });
+    }
+})
+
 app.post('/deleteConvo', async (req, res) => {
     const { id } = req.body;
   

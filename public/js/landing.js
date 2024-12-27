@@ -11,6 +11,7 @@ async function signUp(email, password) {
     console.log('User signed up:', data);
     endLoading();
     sessionStorage.setItem('user', data.email);
+    sessionStorage.setItem('previousUser', data);
     goto('/chat')
   } else {
     alert('Error signing up:', data.error);
@@ -84,7 +85,7 @@ document.getElementById('signUp').addEventListener('submit', (event) => {
   event.preventDefault();
   let email = document.getElementById('Semail').value;
   let pass = document.getElementById('Sp1').value;
-  let cPass = document.getElementById('Sp2').value;
+  let cPass = document.getElementById('Sp2').value; 
   startLoading();
 
   if(pass == cPass){

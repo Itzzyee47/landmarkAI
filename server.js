@@ -48,16 +48,27 @@ const checkAuth = (req, res, next) => {
     });
 }
 
+const checkAuth1 = (req, res, next) => {
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            
+            return res.redirect('/chat'); 
+        }else{
+            next();
+        }
+    });
+}
+
 function timeStamp() {
     var d = new Date();
-    var n = d.getTime();
+    var n = d.toISOString();    
     return n;
   }
 
 
 // Serve HTML profilePic
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/views', 'index.html'));
+app.get('/', checkAuth1, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/views', 'mentanace.html'));
 });
 
 // Signup users.
@@ -150,7 +161,8 @@ app.post('/getMessage', async (req, res) => {
             const data = doc.data();
             const sender = data.sender;
             const content = data.content;
-            respons.push({sender,content});
+            const time = data.time;
+            respons.push({sender,content,time});
         });
         
         res.send({snapshot:respons});        
@@ -196,8 +208,41 @@ app.post('/sendFeedback', async (req, res) =>{
 })
 
 app.post('/getConvo', async (req, res) =>{
+    let email = null;
+    auth.onAuthStateChanged(user => {
+            if (user) {
+                // User is signed in.
+                email = user.email;
+            }else{
+                email = user.email;
+            }
+        })
     
-    const {currentUser} = req.body;
+    const currentUser = email;
+    try {
+        let respons = [];
+        const snapshot = await getDocs(query(collection(db, "conversations"),where("user", "==", currentUser)));
+        const result = snapshot.forEach((doc) => {
+            // Display each document's data
+            const data = doc.data();
+            const id = doc.id;
+            const date = data.time
+            respons.push({id,date});
+        });
+       
+        res.send({ respons:respons});
+
+    } catch (error) {
+        res.send({error: `An error occured: ${error}` });
+        console.error('Error getting conversations ', error);
+    }
+
+})
+
+app.post('/getConvoM', async (req, res) =>{
+    let { email } = req.body;
+    
+    const currentUser = email;
     try {
         let respons = [];
         const snapshot = await getDocs(query(collection(db, "conversations"),where("user", "==", currentUser)));

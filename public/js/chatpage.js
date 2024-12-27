@@ -197,6 +197,7 @@ async function saveChatMessage(message,u) {
   }
 }
 
+const awaitingReply = false;
 
 
 document.getElementById('message-form').addEventListener('submit', (event) => {
@@ -206,7 +207,9 @@ document.getElementById('message-form').addEventListener('submit', (event) => {
   if (chatHistory.children.length >= 1) {
     document.getElementById('p1').style.display = "none";
   }
-
+  if(awaitingReply){
+    return;
+  }
   const userMessage = userMessageInput.value;
   if (!userMessage) {
     return;
@@ -220,6 +223,7 @@ document.getElementById('message-form').addEventListener('submit', (event) => {
   userMessageElement.innerHTML = `<div class="message-content" data='${timeStamp()}'>${userMessage}</div>`;
   chatHistory.appendChild(userMessageElement);
   chatHistory.scrollTop = chatHistory.scrollHeight; // Scroll to bottom
+  awaitingReply = true;
 
   saveChatMessage(userMessage,currentUser); // Save user message to database.
 
@@ -249,6 +253,7 @@ document.getElementById('message-form').addEventListener('submit', (event) => {
         const modelResponse = data.answer;
         addModelMessageElement();
         const messageContentElement = modelMessageElement.querySelector('.message-content');
+        awaitingReply = false;
         saveChatMessage(modelResponse,"bot"); // Save user message with HTML
         applyTypewriterEffect(modelResponse, messageContentElement); // Typewriter effect for HTML
         setTimeout(() => {
@@ -259,11 +264,13 @@ document.getElementById('message-form').addEventListener('submit', (event) => {
         
       })
       .catch((error) => {
+        awaitingReply = false;
         console.log('Error fetching response:', error);
         alert('Sorry the network sims to be busy, please reload the page and try again!');
       });
     }
   } catch (err) {
+    awaitingReply = false;
     const modelResponse = "An error occurred while trying to get a response. Please check your internet connectivity.";
     typeWriter(modelResponse, modelMessageElement.querySelector('.message-content'));
     loader.style.display = "none";

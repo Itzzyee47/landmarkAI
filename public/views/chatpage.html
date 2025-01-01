@@ -48,7 +48,7 @@
             <div class="loader" id="loader"></div>
             
             <input type="text" id="user-message" name="user-message" placeholder="Type your message here">
-            <button id="send-button" type="submit">Send</button>
+            <button id="send-button" type="submit"> <i class="fa fa-send"> Send </i></button>
         </form>
     </div>
 
@@ -92,7 +92,7 @@
 
     <!-- The Modal for login -->
     <div id="id03" class="modal">
-        <form action="" id="review-form" >
+        <form action="" id="review-form" onsubmit="handleReviewFormSubmission(event)">
             <h2>Leave a review</h2><br>
             <textarea name="" id="feedback" style="width: 80%; height: 70px;"></textarea><br>
             <button type="submit">Submit</button><br>

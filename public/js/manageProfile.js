@@ -142,7 +142,7 @@ async function getConvos(){
           // Display each document's data
           const t = doc.date;
           const id = doc.id;
-          const date = new Date(Number(t));//convert string date to actual date format
+          const date = new Date(t);//convert string date to actual date format
           let options = { weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' };
           var D = date.toLocaleDateString('en-US', options);
           let elm = `
@@ -157,7 +157,7 @@ async function getConvos(){
           passChat.innerHTML = elm;
           manageConvos.appendChild(passChat);
           //console.log(id);
-          console.log(passChat);
+          //console.log(passChat);
         });
 
         // Load the messages of the latest conversation

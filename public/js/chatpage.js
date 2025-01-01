@@ -19,6 +19,13 @@ function signOutUser(){
 window.signOutUser = signOutUser;
 
 
+function closeNav() {
+  let logo = document.getElementById("logo");
+  document.getElementById("mySidenav").style.width = "0";
+  logo.style.zIndex = '';
+  logo.style.webkitTextStroke = '';
+}
+
 
 function getUserData() {
     
@@ -156,30 +163,32 @@ function isMarkdown(text) {
   return markdownPatterns.some(pattern => pattern.test(text));
 }
 
-document.getElementById('review-form').addEventListener('submit', async (event) => {
-  event.preventDefault();
-  let feedback = document.getElementById('feedback');
-  feedback = feedback.value;
+async function handleReviewFormSubmission(event) {
+  event.preventDefault(); // Prevent the default form submission behavior
+  
+  let feedbackElement = document.getElementById('feedback');
+  let feedback = feedbackElement.value; // Extract feedback value
+  
   try {
-    const sendReview = await fetch('/sendFeedback', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      //JSON.stringify({ email, password })
-      body: JSON.stringify({ currentUser, feedback }),
-    });
-    const data = await sendReview.json();
-    if(data){
-      alert(data.message);
-      location.reload();
-    }
-  } catch (error) {
-    alert('The was a complication sending your feedback, please check your internet connection!')
-  }
+      const sendReview = await fetch('/sendFeedback', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ currentUser, feedback }), // Send the current user and feedback
+      });
 
+      const data = await sendReview.json();
+
+      if (data) {
+          alert(data.message); // Notify the user
+          location.reload();   // Reload the page
+      }
+  } catch (error) {
+      alert('There was a complication sending your feedback, please check your internet connection!');
+  }
 }
-)
+
 async function saveChatMessage(message,u) {
   try {
     let convoID = Convo.attributes[2].textContent;
@@ -197,7 +206,7 @@ async function saveChatMessage(message,u) {
   }
 }
 
-const awaitingReply = false;
+let awaitingReply = false;
 
 
 document.getElementById('message-form').addEventListener('submit', (event) => {
@@ -319,6 +328,7 @@ async function loadMessages(id) {
   }
   const convoID = id;
   loader.style.display = "block";
+  closeNav();
   console.log('convoid:',convoID);
     const response = await fetch('/getMessage', {
       method: 'POST',
@@ -374,6 +384,8 @@ async function createNewCOnversation(){
   Convo.attributes[2].textContent = querySnapshot;
   loader.style.display = "none";
   chatHistory.innerHTML = ""; //Clear chathistory to start new conversation..
+  //getConvos();
+  //window.location.reload();
   //location.reload();
 }
 
@@ -419,11 +431,12 @@ async function getConvos(){
           passChat.title = id;
           passChat.id = id;
           //console.log(t);
-          const date = new Date(Number(t));//convert string date to actual date format
+          const date = new Date(t);//convert string date to actual date format
           //console.log(t, id);
           
           let options = { weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' };
           passChat.innerText = date.toLocaleDateString('en-US', options);
+          console.log(date.toLocaleDateString('en-US', options)) 
           chats.appendChild(passChat);
           //console.log(id);
           //console.log(JSON.stringify(data));
@@ -432,7 +445,7 @@ async function getConvos(){
         // Load the messages of the latest conversation
         const latestDoc = querySnapshot[0];
         //console.log(latestDoc.id);
-        //load messages blonging to conversation of id....
+        //load messages belonging to conversation of id....
         Convo.attributes[2].textContent = latestDoc.id;
         loadMessages(latestDoc.id);
         console.log(latestDoc.id);
@@ -444,9 +457,10 @@ async function getConvos(){
       
     }else {
        // No conversations found, create a new one
-       if(chats.children.length == 2){
+       if(querySnapshot.length == 0){
           createNewCOnversation();
-          window.location.href = "/chat";
+          //window.location.href = "/chat";
+
        }
        
     
@@ -454,24 +468,24 @@ async function getConvos(){
 
   } catch (error) {
     
-      console.error("Error reading document: ", error);
+      console.log("Error reading document: ", error);
   }
     
 }
 
 async function getConvosMview(){  
   try {
-    const response = await fetch('/getConvo', {
+    const response = await fetch('/getConvoM', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         //JSON.stringify({ email, password })
-        body: JSON.stringify({ currentUser }),
+        body: JSON.stringify({ 'email':currentUser }),
       });
     var data = await response.json();
     const querySnapshot = data.respons;
-    //console.log(data.respons);
+    console.log(data.respons);
 
     if (querySnapshot.length != 0) {
       //load all conversations in recent convo list...
@@ -485,13 +499,13 @@ async function getConvosMview(){
           passChat.addEventListener('click', ()=>{loadConvo(doc.id);});
           passChat.title = id;
           passChat.id = id;
-          const date = new Date(Number(t));//convert string date to actual date format
+          const date = new Date(t);//convert string date to actual date format
          
           let options = { weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' };
           passChat.innerText = date.toLocaleDateString('en-US', options);
           chatsMobile.appendChild(passChat);
           //console.log(id);
-          console.log(JSON.stringify(data));
+          //console.log(JSON.stringify(data));
         });
 
         // Load the messages of the latest conversation
@@ -508,7 +522,7 @@ async function getConvosMview(){
 
   } catch (error) {
     
-      console.error("Error reading document: ", error);
+      console.log("Error reading document: ", error);
   }
     
 }

@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
 const { initializeApp } = require('firebase/app');
-const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } = require('firebase/auth');
+const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, setPersistence, browserLocalPersistence, signOut, updateProfile } = require('firebase/auth');
 const { getStorage, ref, uploadBytes, getDownloadURL } =  require('firebase/storage');
 const { getFirestore,collection, deleteDoc, doc, addDoc, where,getDocs, query, orderBy, } = require('firebase/firestore');
 
@@ -68,7 +68,7 @@ function timeStamp() {
 
 // Serve HTML profilePic
 app.get('/', checkAuth1, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/views', 'mentanace.html'));
+    res.sendFile(path.join(__dirname, 'public/views', 'index.html'));
 });
 
 // Signup users.
@@ -90,6 +90,7 @@ app.post('/signup', async (req, res) => {
 app.post('/signin', async (req, res) => {
     const { email, password } = req.body;
     console.log("Attempting to signin",email);
+    await setPersistence(auth, browserLocalPersistence);
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
@@ -208,20 +209,11 @@ app.post('/sendFeedback', async (req, res) =>{
 })
 
 app.post('/getConvo', async (req, res) =>{
-    let email = null;
-    auth.onAuthStateChanged(user => {
-            if (user) {
-                // User is signed in.
-                email = user.email;
-            }else{
-                email = user.email;
-            }
-        })
     
-    const currentUser = email;
+    const { currentUser } = req.body;
     try {
         let respons = [];
-        const snapshot = await getDocs(query(collection(db, "conversations"),where("user", "==", currentUser)));
+        const snapshot = await getDocs(query(collection(db, "conversations"),where("user", "==", currentUser),orderBy("time", "desc")));
         const result = snapshot.forEach((doc) => {
             // Display each document's data
             const data = doc.data();
@@ -245,7 +237,7 @@ app.post('/getConvoM', async (req, res) =>{
     const currentUser = email;
     try {
         let respons = [];
-        const snapshot = await getDocs(query(collection(db, "conversations"),where("user", "==", currentUser)));
+        const snapshot = await getDocs(query(collection(db, "conversations"),where("user", "==", currentUser),orderBy("time", "desc")));
         const result = snapshot.forEach((doc) => {
             // Display each document's data
             const data = doc.data();

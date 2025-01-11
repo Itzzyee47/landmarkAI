@@ -138,12 +138,12 @@ app.post('/saveMessage', async (req, res) => {
           await addDoc(collection(db, 'messages'), {
             sender: 'bot',content: message,convoId: convoID, time: `${timeStamp()}`
           });
-          res.status(200);
+          res.send({"sucess":true});
         }else{
           await addDoc(collection(db, 'messages'), {
             sender: u, content: message, convoId: convoID, time: `${timeStamp()}`
           });
-          res.status(200);
+          res.send({"sucess":true});
         }
         
       } catch (e) {

@@ -147,7 +147,8 @@ app.post('/saveMessage', async (req, res) => {
         }
         
       } catch (e) {
-        console.error('Error saving document ', e);
+        console.error('Error saving document', e);
+        res.status(302).json({"error":e});
       }
 })
 

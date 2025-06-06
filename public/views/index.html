@@ -86,7 +86,7 @@
            <div class="welcomeText">
             <h1 class="I1 fade-in-top">Hi there stranger!</h1>
             <h3 class="I2 fade-in-top-2" style="margin-top: 2px; color: #313131;"> Welcome to Landmark's Student Assistant ChatBot,</h3>
-            <div class="prase tracking-in-contract2" style="color: gray; font-style: oblique;">
+            <div class="prase fade-in-top-2" style="color: gray; font-style: oblique;">
                 Sign up for a world of fun and learning, and for all your questions concering the institude of Landmark Buea, ask Landmark's AI chatbot.
             </div>
             <button id="startBTN" class="bounce-in-fwd" onclick="document.getElementById('id02').style.display='flex'">
@@ -123,7 +123,7 @@
                 <div class="aboutUs fade-in-top-2">
                     Ensuring safty and scalability by using cloud service providers(Firebase)
                      to manage users and user data alike. 
-                    Avialable 24\7 with reliable data gotten from LMU administration.
+                    Avialable 24\7 with support gotten from LMU administration.
                 </div>
             </div>
 
@@ -131,7 +131,101 @@
         </div>
 
         <div class="help" id="help">
+            <div class="qa-section">
+                <h2 style="margin-bottom:1.5rem;">Frequently Asked Questions</h2>
+                <button class="accordion">What courses are offered at Landmark?</button>
+                <div class="faq">
+                    <p>Landmark offers a variety of courses per department which include, Artificial inteligence, laboritory science, graphics design, Computer Science, Business Management, and more.</p>
+                </div>
+
+                <button class="accordion">Can the chatbot help me in coding?</button>
+                <div class="faq">
+                    <p>Yes, Landmark's AI is powered by recent Generetive AI models(llm) which has the capability of generating or correcting code.</p>
+                </div>
+
+                <button class="accordion">Must i sign up to use the chatbot?</button>
+                <div class="faq">
+                    <p>Yes, we like to know our users and offer them a personalized experience.</p>
+                </div>
+
+                <button class="accordion">Is the chatbot available 24/7?</button>
+                <div class="faq">
+                    <p>Yes, Landmark's AI chatbot is available 24/7 to assist you with your queries.</p>
+                </div>
+            </div>
+
+            <style>
+            .accordion {
+              background-color: #eee;
+              color: #444;
+              cursor: pointer;
+              padding: 8px;
+              width: 100%;
+              text-align: left;
+              border: none;
+              outline: none;
+              transition: 0.4s;
+              margin: 2px 0;
+            }
+            .accordion:after {
+            content: '\02795'; /* Unicode character for "plus" sign (+) */
+            font-size: 13px;
+            color: #777;
+            float: right;
+            margin-left: 5px;
+            }
+
             
+            .accordion.active:after {
+            content: "\2796"; /* Unicode character for "minus" sign (-) */
+            }
+            .help{
+                display: flex;
+                flex-wrap: wrap;
+                padding: 5%;
+                gap: 3rem;
+            }
+            .qa-section {
+              max-width: 800px;
+              margin: 0 auto;
+              padding: 20px;
+              background-color: #f9f9f9;
+              border-radius: 8px;
+            }
+            .faq {
+              padding: 0 18px;
+              background-color: white;
+              display: none;
+              overflow: hidden;
+            }
+            </style>
+
+            <script>
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+              acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                  panel.style.display = "none";
+                } else {
+                  panel.style.display = "block";
+                }
+              });
+            }
+            </script>
+
+            <div class="customer-support">
+            <h2>Customer Support</h2>
+            <p>If you have any questions or need assistance, feel free to reach out to our support team:</p>
+            <ul>
+                <li>Email: support@landmark.com</li>
+                <li>Phone: +237 652028940</li>
+                <li>Live Chat: Sign up and start asking your questions</li>
+            </ul>
+            </div>
         </div>
     </section>
 
@@ -142,7 +236,7 @@
     <!-- Login form Content -->
     <form class="modal-content animate" action="/" id="signIn">
         <div class="logo" style="display: flex;justify-content: center;margin: 10px 0px;font-size: 2rem; overflow:hidden;">
-            <img src="../img/signInLogo.png" alt="Sign-in" style="width:100%;" >
+            <img src="../img/signInLogo.png" alt="Sign-in" style="width:160px;" >
         </div>
         <div class="container">
         <label for="email"><b>Email</b></label>

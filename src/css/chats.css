@@ -1,0 +1,272 @@
+/* Base Styles */
+.chat-container {
+  height: 100vh;
+  display: flex;
+  background: linear-gradient(135deg, #faf5ff 0%, #fce7f3 100%);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 50;
+  width: 16rem;
+  background: linear-gradient(to bottom, #7c3aed 0%, #6d28d9 100%);
+  transform: translateX(-100%);
+  transition: transform 300ms ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    transform: translateX(0);
+    position: static;
+  }
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-overlay {
+    display: none;
+  }
+}
+
+/* Main Chat Area */
+.main-chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 0;
+}
+
+@media (min-width: 1024px) {
+  .main-chat-area {
+    margin-left: 0;
+    width: 80vw;
+  }
+}
+
+.chat-header {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #f3e8ff;
+  padding: 1rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Messages Container */
+.messages-container {
+  flex: 1;
+  position: relative;
+}
+
+.messages-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.message-row {
+  display: flex;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.message-row.user-message {
+  justify-content: flex-end;
+}
+
+.message-row.bot-message {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.user-bubble {
+  max-width: 80%;
+  background: linear-gradient(to right, #a78bfa 0%, #f472b6 100%);
+  color: white;
+  border-bottom-right-radius: 0.375rem;
+}
+
+.bot-bubble {
+  width: 100%;
+  max-width: 100%;
+  color: #1f2937;
+  border-bottom-left-radius: 0.375rem;
+  border: none;
+  box-shadow: none;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin-top: 0.25rem;
+}
+
+.user-time {
+  color: #e9d5ff;
+}
+
+.bot-time {
+  color: #6b7280;
+}
+
+/* Loading Dots */
+.loading-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #a78bfa;
+  border-radius: 9999px;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.25rem);
+  }
+}
+
+/* Input Container */
+.input-container {
+  border-top: 1px solid #f3e8ff;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  width: 100%;
+}
+
+.input-form {
+  width: 100%;
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  padding: 0.25rem 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.message-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background-color: transparent;
+}
+
+.message-input:disabled {
+  opacity: 0.7;
+}
+
+.input-icon {
+  color: #6b7280;
+}
+
+.input-icon:hover {
+  color: #9333ea;
+}
+
+.mic-icon svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.send-button {
+  margin-left: 0.5rem;
+  background-color: black;
+  color: white;
+  border-radius: 9999px;
+  padding: 0.5rem;
+  transition: background-color 150ms;
+}
+
+.send-button:hover {
+  background-color: #1f2937;
+}
+
+.send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Markdown Content */
+.markdown-content {
+  line-height: 1.75;
+}
+
+.markdown-content pre {
+  background-color: #eeeeeed9;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+.markdown-content code {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.875rem;
+}
+
+.markdown-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.markdown-content p {
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content a {
+  color: #9333ea;
+  text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .bot-bubble {
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+  .messages-wrapper {
+    width: 100vw;
+  }
+  .user-bubble {
+    max-width: 85%;
+    padding: 0.5rem;
+  }
+}

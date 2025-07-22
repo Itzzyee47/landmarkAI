@@ -278,7 +278,7 @@ const Chat = () => {
   const renderMessage = (content: string) => {
     if (isMarkdown(content)) {
       const html = marked(content);
-      // return <div dangerouslySetInnerHTML={{ __html: html }} className="markdown-content" />;
+      return <div dangerouslySetInnerHTML={{ __html: html }} className="markdown-content" />;
     }
     return <p>{content}</p>;
   };

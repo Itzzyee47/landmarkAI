@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { MessageSquare, Shield, Clock, Users } from 'lucide-react';
+import { MessageSquare, Shield, Clock, Users, Smartphone, Download } from 'lucide-react';
 import FadeInOnView from "@/components/ui/scroll-slide-in";
 import '../css/anistyles.css';
 import Header from '@/components/Header';
@@ -151,6 +151,75 @@ const Index = () => {
               </CardContent>
             </Card>
           </FadeInOnView>
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile App Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <FadeInOnView once={false} delay={0.2} duration={1}>
+              <div className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                  Take Zylla with you on the go
+                </h2>
+                <p className="text-xl text-gray-600">
+                  Download our mobile app and have instant access to Zylla AI wherever you are. 
+                  Get the same intelligent assistance on your Android device with an optimized mobile experience.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                      <Smartphone className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="text-gray-700">Native Android experience</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                      <Shield className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="text-gray-700">Secure and lightweight</span>
+                  </div>
+                </div>
+                <div className="pt-4">
+                  <a 
+                    href="/downloads/lsa_chatbot.apk" 
+                    download="LandmarkAI_Zylla.apk"
+                    className="inline-flex items-center"
+                  >
+                    <Button 
+                      size="lg" 
+                      className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-lg px-8 py-4 rounded-full"
+                    >
+                      <Download className="w-5 h-5 mr-2" />
+                      Download APK
+                    </Button>
+                  </a>
+                  <p className="text-sm text-gray-500 mt-2">
+                    Compatible with Android 5.0 and above
+                  </p>
+                </div>
+              </div>
+            </FadeInOnView>
+
+            {/* Right Content - Mobile App Image */}
+            <FadeInOnView once={false} delay={0.6} duration={1.2}>
+              <div className="relative flex justify-center">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-3xl opacity-20 blur-2xl"></div>
+                  <div className="relative bg-blue-950 rounded-3xl p-2 shadow-2xl -rotate-3 ">
+                    <img 
+                      style={{ objectFit: 'cover'}}
+                      src="/lsaApp.jpeg" 
+                      alt="Zylla AI Mobile App"
+                      className="w-auto h-96 object-cover rounded-2xl shadow-lg"
+                    />
+                  </div>
+                </div>
+              </div>
+            </FadeInOnView>
           </div>
         </div>
       </section>

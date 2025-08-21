@@ -1,6 +1,6 @@
 // zylla-ai.ts
 import chatHistory from './chatHistory';
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI,createUserContent,createPartFromUri, } from '@google/genai';
 
 
 
@@ -28,6 +28,37 @@ function extractFactualContext(chatHistory: any[]): string {
     .map(msg => msg.parts.map((p: any) => p.text).join('\n'))
     .filter(isFactual)
     .join('\n\n');
+}
+
+export async function askZyllaWithAudio(audioBlob: Blob): Promise<string> {
+  try {
+    // 1. Upload the audio file to Gemini
+    const audioFile = await ai.files.upload({
+      file: audioBlob,
+      config: { mimeType: "audio/webm" }, // or "audio/mpeg" depending on your recording format
+    });
+
+    // 2. Create the transcription request
+    const transcriptionResponse = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: createUserContent([
+        createPartFromUri(audioFile.uri, audioFile.mimeType),
+        "Transcribe this audio message exactly as spoken, including filler words like 'um' and 'ah'. Only return the raw transcription without any additional commentary or formatting.",
+      ])
+    });
+
+    // 3. Extract the transcription text
+    const transcription = transcriptionResponse.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+    
+    if (!transcription) {
+      throw new Error("Empty transcription response");
+    }
+
+    return transcription;
+  } catch (error) {
+    console.error("Audio transcription error:", error);
+    throw new Error("Could not transcribe audio message");
+  }
 }
 
 // ✅ Reusable function to get Zylla's response

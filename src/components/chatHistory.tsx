@@ -117,7 +117,7 @@ I hope this helps!  Good luck with your scholarship applications! 😊
           text: `LMUI Buea has a pretty good infrastructure, especially considering it's a growing university!  Here's a quick rundown:
 
 * **Campus:**  We have two campuses, the main campus and Campus B.  Both campuses are well-maintained and have a mix of modern and traditional buildings.
-* **Classrooms:**  The classrooms are generally spacious and well-equipped with projectors, whiteboards, and comfortable seating.  
+* **Classrooms:**  The classrooms are generally spacious and well-equipped with projectors, screens, whiteboards, and comfortable seating.  
 * **Library:**  The library is a great resource for students, with a good collection of books, journals, and online databases.  It's a quiet space for studying and research.
 * **Computer Labs:**  We have computer labs with up-to-date computers and software for students to use.  
 
@@ -217,69 +217,7 @@ Would you like to know more about a specific aspect of LMUI, like their programs
         },
       ],
     },
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `what kind of programs do they offer`,
-        },
-      ],
-    },
-    {
-      role: 'model',
-      parts: [
-        {
-          text: `LMUI offers a variety of programs across different faculties. Here are some of the main ones:
-
-** LANDMARK School of Science, Engineering and Technology**
-
-*Computer Engineering
-*Networks & Telecom
-*Electrical Engineering
-*Civil Engineering
-*Mechanical Engineering
-
-** School of Business - Management Sciences:**
-
-*Finance
-*Marketing
-*Transport & Logistics
-*Human Resource
-*Project Management
-
-** School of Business - Education and Social Science**
-
-* Education
-*Law
-*Journalism and Corporate Communication
-
-** School of Medical & Biomedical sciences:**
-
-* Nursing
-*Phamarcy Technology
-*Medical Laboratory Sciences
-*Health Care
-
-** School of Agricultural & Food sciences:**
-
-* Agriculture
-*Food Technology
-
-** School of Business - Hospitality & Tourism:**
-
-* Tourism
-*Home Economics
-
-
-This is just a brief overview. You can find more detailed information about each program on the LMUI website (https://landmark.cm).  
-
-Do you have any specific programs in mind? I can help you find more information about them! 😊 
-
-
-`,
-        },
-      ],
-    },
+    
     {
       role: 'user',
       parts: [
@@ -335,6 +273,86 @@ For detailed information, visit the [Landmark Metropolitan University Tuition Fe
 `,
         },
       ],
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          text: "What are some of the programs offered in the School of Engineering at Landmark Metropolitan University?"
+        }
+      ]
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          text: "### Programs in the School of Science, Engineering & Technology (LSSET)\n\n- **Hardware Maintenance**\n- **Software Engineering**\n- **Mechanical Manufacturing**\n- **Computer Graphics**\n- **Electrical Power Systems**\n- **Web Design**\n- **Cyber Security**\n- **Database Management**\n- **Network & Security**\n- **Civil Engineering Technology**\n- **Telecommunication**\n- **E-commerce & Digital Marketing**\n- **Urban Planning**- **DEVOPS Engineering** (Special)\n\nProgram durations:\n- **HND:** 2 years\n- **Bachelor's Degree (BTech):** 3 years\n- **Top-Up BTech:** 1 year\n- **Masters (MTech):** 2 years"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          text: "What programs are available in the School of Medical and Biomedical Sciences at Landmark Metropolitan University?"
+        }
+      ]
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          text: "### Programs in the School of Medical and Biomedical Sciences (LSMBS)\n\n- **Nursing**\n- **Nutrition and Dietetics**\n- **Pharmacy Technology - Health Care Management**\n- **Medical Lab Science**\n- **Midwifery**\n\nProgram durations:\n- **HND:** 2 years\n- **Bachelor's Degree:** 3 years\n- **Top-Up Degree:** 1 year"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          text: "What are the programs under the School of Business and Social Sciences at Landmark Metropolitan University?"
+        }
+      ]
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          text: "### Programs in the School of Business and Social Sciences (LSBSS)\n\n- **Accounting**\n- **Banking and Finance**\n- **Marketing Trade-Sales**\n- **Human Resource Management**\n- **Management**\n- **Project Management**\n- **Logistics & Transport Management**\n- **Ports & Shipping Management**\n- **Journalism**\n- **Corporate Communication**\n- **Business Law**\n- **Tourism & Travel Agency Management**\n- **Hotel Management and Catering**\n- **Educational Management & Administration**\n- **Vocational Guidance and Counseling**\n\nProgram durations:\n- **HND:** 2 years\n- **Bachelor's Degree (BSc/BBA):** 3 years\n- **Top-Up BSc/BBA:** 1 year\n- **Masters (MBA/MSc):** 2 years"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          text: "What programs does the School of Agriculture and Food Sciences offer?"
+        }
+      ]
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          text: "### Programs in the School of Agriculture and Food Sciences (LSAFS)\n\n- **Crop Production**\n- **Agro-Pastoral Adviser**\n- **Food Technology**\n- **Agro Pastoral Entrepreneurship**\n- **Animal Production Technology**\n\nProgram durations:\n- **HND:** 2 years\n- **Bachelor's Degree:** 3 years\n- **Top-Up Degree:** 1 year"
+        }
+      ]
+    },
+    {
+      role: 'user',
+      parts: [
+        {
+          text: `What is the meaning of LSA`,
+        },
+      ],
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          text: "### LSA stands for:\n\n- **Landmark Student Assistant** \n Which is me, Zylla, here to help you in knowing more about LMUI and its programs."
+        }
+      ]
     },
     {
       role: 'user',
